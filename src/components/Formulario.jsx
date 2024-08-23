@@ -13,6 +13,8 @@ const Formulario = () => {
 
   const [error, setError] = useState(false);
 
+  const { nombre, categoria } = busqueda;
+
   //leer los contenidos
 
   const obtenerDatosReceta = (e) => {
@@ -24,8 +26,15 @@ const Formulario = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (nombre.trim() === "" || categoria.trim() === "") {
+      setError(true);
+      return;
+    }
+
     setBuscarRecetas(busqueda);
     setConsultar(true);
+    setError(false);
   };
 
   return (
@@ -67,6 +76,11 @@ const Formulario = () => {
           />
         </div>
       </div>
+      {error ? (
+        <p className="alert alert-warning text-center p-2 mt-2">
+          Todos los campos son obligatorios
+        </p>
+      ) : null}
     </form>
   );
 };
